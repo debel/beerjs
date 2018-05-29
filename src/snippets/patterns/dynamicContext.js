@@ -8,7 +8,7 @@ const dynamicContext1 = {
     setData: newData => this.setState((prevState) => (
       shallowCompare(newData, prevState.data)
         ? null
-        : { data, setData }
+        : { data: newData, setData }
     ))
   }
 

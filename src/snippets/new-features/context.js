@@ -1,7 +1,7 @@
 export default {
   id: 'create_context',
   title: 'The Context API',
-  comment: 'Sharing data down the component tree',
+  comment: 'Sharing state down the component tree',
   source: (
 `
 // ThemeContext.jsx

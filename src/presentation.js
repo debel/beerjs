@@ -1,5 +1,5 @@
 import React from 'react';
-import { Deck, Slide, ListItem, Image } from 'spectacle';
+import { Deck, Layout, List, ListItem, Link, Image, Slide } from 'spectacle';
 import createTheme from 'spectacle/lib/themes/default';
 
 import { CodeSlide, Title, CenteredList } from './utils';
@@ -15,6 +15,7 @@ import dontChangeState from './snippets/new-features/dontChangeState'
 import { dynamicContext1, dynamicContext2 } from './snippets/patterns/dynamicContext';
 import fragmentFeed from './snippets/patterns/fragmentFeed';
 import inlineOrModal from './snippets/patterns/inlineOrModal';
+
 require('normalize.css');
 require('prismjs/themes/prism-funky.css');
 
@@ -30,7 +31,13 @@ const theme = createTheme(
     secondary: 'Helvetica',
   }
 );
-console.log(theme);
+
+const Accent = ({ children }) => (
+  <span style={{color:theme.screen.colors.tertiary}}>
+    {children}
+  </span>
+)
+
 export default class Presentation extends React.Component {
   render() {
     return (
@@ -50,9 +57,15 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide id="about_skyscanner">
           <Title>About Skyscanner</Title>
-          <CenteredList>
-            <ListItem>fill me in!</ListItem>
-          </CenteredList>
+          <List style={{listStyle: 'none'}}>
+            <ListItem>Founded in 2003</ListItem>
+            <ListItem>Mission: be the best travel search engine</ListItem>
+            <ListItem>
+              <Accent>Global:</Accent> 10 offices hosting over 800 employees from 50 nationalities
+            </ListItem>
+            <ListItem><Accent>Growing:</Accent> 60 million unique monthly visitors</ListItem>
+            <ListItem><Accent>Technology-driven:</Accent> 50% of staff are engineers</ListItem>
+          </List>
         </Slide>
         <Slide id="outline">
           <Title>Outline</Title>
@@ -65,9 +78,43 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide id="atomic_design">
           <Title>Atomic Design</Title>
+          <List style={{listStyle: 'none'}}>
+            <ListItem>
+              Methodology for creating design systems (as opposed to ad-hoc collections of web pages)
+            </ListItem>
+            <ListItem>An equal partnership between design and engineering</ListItem>
+            <ListItem>
+              <Link textColor="secondary" href="http://bradfrost.com/blog/post/atomic-web-design/">
+                (Link to original blog post)
+              </Link>
+            </ListItem>
+          </List>
+        </Slide>
+        <Slide id="atomic_design_concepts">
+          <Title>Atomic Design: Concepts</Title>
+          <Layout>
+            <Image src="images/atomic_design_tokens.png" />
+            <Image src="images/atomic_design_atoms.png" />
+            <Image src="images/atomic_design_molecules.png" />
+          </Layout>
+          <Layout>
+            <Image src="images/atomic_design_organisms.png" />
+            <Image src="images/atomic_design_systems.png" />
+          </Layout>
+        </Slide>
+        <Slide id="atomic_design_benefits">
+          <Title>Atomic Design: Benefits</Title>
           <CenteredList>
-            <ListItem>Fill me in!</ListItem>
+            <ListItem>Structure</ListItem>
+            <ListItem>Encapsulation</ListItem>
+            <ListItem>Reusability</ListItem>
+            <ListItem>Consistency</ListItem>
+            <ListItem>Maintainability</ListItem>
           </CenteredList>
+        </Slide>
+        <Slide id="atomic_design_and_react">
+          <Title>React follows</Title>
+          <Title secondary>Atomic Design</Title>
         </Slide>
         <Slide id="react_16">
           <Title>What's new in React 16?</Title>
@@ -92,6 +139,8 @@ export default class Presentation extends React.Component {
           <Image src="images/component-lifecycle.jpg" />
         </Slide>
         <CodeSlide {...context} />
+        <CodeSlide {...dynamicContext1} />
+        <CodeSlide {...dynamicContext2} />  
         <CodeSlide {...refs} />
         <CodeSlide {...forwardRefs} />
         <Slide id="coming_soon">
@@ -105,8 +154,8 @@ export default class Presentation extends React.Component {
         <Slide id="tools_improvements">
           <Title>Tools improvements</Title>
           <CenteredList>
-            <ListItem><span style={{color:theme.screen.colors.tertiary}}>&lt;StrictMode&gt;</span> Component</ListItem>
-            <ListItem><span style={{color:theme.screen.colors.tertiary}}>&lt;Profiler&gt;</span> Component</ListItem>
+            <ListItem><Accent>&lt;StrictMode&gt;</Accent> Component</ListItem>
+            <ListItem><Accent>&lt;Profiler&gt;</Accent> Component</ListItem>
           </CenteredList>
         </Slide>
         <Slide id="async_rendering">
@@ -141,8 +190,6 @@ export default class Presentation extends React.Component {
             <ListItem>Render props - callbacks</ListItem>
           </CenteredList>
         </Slide>
-        <CodeSlide {...dynamicContext1} />
-        <CodeSlide {...dynamicContext2} />
         <Slide id="dynamic-loading">
           <Title>Dynamic Loading</Title>
           <CenteredList>
