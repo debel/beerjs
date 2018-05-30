@@ -17,7 +17,7 @@ const DataGraph = ({ id }) => {
 const suspendable = {
   id:'suspendable',
   title: 'Suspense',
-  comment: 'Loading and caching data inside of render',
+  comment: 'Rendering inside a suspendable container',
   source: (
 `import DataGraph from './dataGraph';
 import { Suspendable } from './future/suspense';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cite, Deck, BlockQuote, Layout, List, ListItem, Link, Image, Slide, Quote } from 'spectacle';
+import { Cite, Deck, BlockQuote, Layout, List, ListItem, Link, Image, Slide, Text, Quote } from 'spectacle';
 
 import { CodeSlide, Title, CenteredList, Accent, theme } from './utils';
 
@@ -62,8 +62,10 @@ export default class Presentation extends React.Component {
           <Title>Atomic Design</Title>
           <List style={{listStyle: 'none'}}>
             <ListItem>
-              Methodology for creating design systems (as opposed to ad-hoc collections of web pages)
+              Methodology for creating design systems
+              <span style={{fontStyle:'italic'}}> (as opposed to ad-hoc collections of web pages)</span>
             </ListItem>
+            <br/>
             <ListItem>An equal partnership between design and engineering</ListItem>
             <ListItem>
               <Link textColor="secondary" href="http://bradfrost.com/blog/post/atomic-web-design/">
@@ -87,10 +89,8 @@ export default class Presentation extends React.Component {
         <Slide id="atomic_design_benefits">
           <Title>Atomic Design: Benefits</Title>
           <CenteredList>
-            <ListItem>Structure</ListItem>
-            <ListItem>Encapsulation</ListItem>
-            <ListItem>Reusability</ListItem>
             <ListItem>Consistency</ListItem>
+            <ListItem>Reusability</ListItem>
             <ListItem>Maintainability</ListItem>
           </CenteredList>
         </Slide>
@@ -157,22 +157,25 @@ export default class Presentation extends React.Component {
         <CodeSlide {...fullstackComponent} />
         <Slide id="state-management">
           <Title>State management</Title>
+          <Text italic textColor="secondary">(separate presentation required)</Text>
           <CenteredList>
-            <ListItem>Redux thunk</ListItem>
-            <ListItem>Redux sagas</ListItem>
+            <ListItem>Redux</ListItem>
+            <ListItem>Thunk</ListItem>
+            <ListItem>Sagas</ListItem>
             <ListItem>Observables</ListItem>
+            <ListItem>and more</ListItem>
           </CenteredList>
         </Slide>
         <Slide id="coming_soon">
           <Title>Coming soon './future'</Title>
           <CenteredList>
-            <ListItem>Tools improvements</ListItem>
+            <ListItem>Development improvements</ListItem>
             <ListItem>Async rendering</ListItem>
             <ListItem>Suspense</ListItem>
           </CenteredList>
         </Slide>
-        <Slide id="tools_improvements">
-          <Title>Tools improvements</Title>
+        <Slide id="dev_improvements">
+          <Title>Development improvements</Title>
           <CenteredList>
             <ListItem><Accent>&lt;StrictMode&gt;</Accent> Component</ListItem>
             <div>Alerts about unsafe side-effects and future feature deprecations</div>
@@ -181,15 +184,45 @@ export default class Presentation extends React.Component {
             <div>Measures the performance of your component tree</div>
           </CenteredList>
         </Slide>
-        <Slide id="async_rendering">
+        <Slide id="react-architecture-img">
+          <Title>React Architecture</Title>
+          <Image width="75%" src="images/react-fiber-architecture.png" />
+        </Slide>
+        <Slide id="react-architecture">
+          <Title>React Architecture</Title>
+          <CenteredList>
+            <ListItem><Accent>reconciliation</Accent>: calculating which parts of the component tree have changed</ListItem>
+            <br/>
+            <ListItem><Accent>rendering</Accent>: applying the changes to the target environment</ListItem>
+          </CenteredList>
+        </Slide>
+        <Slide id="async_rendering-1">
           <Title>Async rendering</Title>
           <CenteredList>
-            <ListItem>fibers</ListItem>
-            <ListItem>schedulers</ListItem>
-            <ListItem>predictable side-effects</ListItem>
+            <ListItem><Accent>scheduling</Accent>: the process of determining when work should be performed</ListItem>
+            <br />
+            <ListItem><Accent>fiber</Accent>: a unit of work with a specific priority</ListItem>
+          </CenteredList>
+        </Slide>
+        <Slide id="async_rendering-2">
+          <Title>Async rendering</Title>
+          <CenteredList>
+            <ListItem>Use the <Accent>&lt;AsyncMode&gt;</Accent> component to mark a lower priorty part of the component tree</ListItem>
+            <br/>
+            <ListItem>The DOM renderer can use <Accent>requestAnimationFrame</Accent> and <Accent>requestIdleCallback</Accent> for high and low priority updates respectively</ListItem>
+          </CenteredList>
+        </Slide>
+        <Slide id="async_rendering-3">
+          <Title>Async rendering: Benefits</Title>
+          <CenteredList>
+            <ListItem>assign priority to different units of work</ListItem>
+            <ListItem>pause work and come back to it later</ListItem>
+            <ListItem>reuse previously completed work</ListItem>
+            <ListItem>abort work if it's no longer needed</ListItem>
           </CenteredList>
         </Slide>
         <Slide id="no-side-effects-quote">
+          <Title>Manage your side-effects</Title>
           <BlockQuote>
             <Quote textSize="1em" textColor="secondary">Components should be resilient to re-renders. If re-rendering your component with the same props ever results in a different behavior, that component is not well-designed</Quote>
             <Cite style={{float:'right'}}><Link textColor="tertiary" href="https://twitter.com/dan_abramov/status/1000899848122617858">Dan Abramov</Link></Cite>
@@ -197,21 +230,18 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide id="suspense">
           <Title>Suspense</Title>
-          <div>pause the rendering of a component</div>
+          <div>pause the rendering of a component while fetching data</div>
           <CenteredList>
-            <ListItem>async code appears synchronous</ListItem>
-            <ListItem>Suspendable data sources</ListItem>
-            <ListItem>Suspendable containers:<br/>
-              <Accent>&lt;Placeholder&gt;</Accent>,
-              <Accent>&lt;Loading&gt;</Accent>
-            </ListItem>
+            <ListItem><Accent>async</Accent> code appears synchronous</ListItem>
+            <ListItem>suspendable data sources</ListItem>
+            <ListItem>suspendable containers</ListItem>
           </CenteredList>
         </Slide>
         <CodeSlide {...suspend} />
         <CodeSlide {...suspendable} />
-        <Slide>
-          <Title>Demo</Title>
-          <Title italic secondary>(Let's hope this still runs)</Title>
+        <Slide id="demo">
+          <Title bigger>Demo</Title>
+          <Title italic secondary>(Let's hope this still works)</Title>
         </Slide>
         <Slide id="the_end">
           <Title fit>Thank you!</Title>

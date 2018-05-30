@@ -24,8 +24,8 @@ const theme = createTheme(
   }
 );
 
-const Title = ({ children, secondary, ...otherProps }) => (
-  <Heading {...otherProps} size={4} textColor={secondary ? "secondary" : "tertiary"}>{children}</Heading>
+const Title = ({ children, secondary, bigger, ...otherProps }) => (
+  <Heading {...otherProps} size={bigger ? 1 : 4} textColor={secondary ? "secondary" : "tertiary"}>{children}</Heading>
 );
 
 const CenteredList = ({ children }) => (
