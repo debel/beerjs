@@ -1,8 +1,7 @@
 import React from 'react';
-import { Deck, Layout, List, ListItem, Link, Image, Slide } from 'spectacle';
-import createTheme from 'spectacle/lib/themes/default';
+import { Cite, CodePane, Deck, BlockQuote, Layout, List, ListItem, Link, Image, Slide, Quote } from 'spectacle';
 
-import { CodeSlide, Title, CenteredList } from './utils';
+import { CodeSlide, Title, CenteredList, Accent, theme } from './utils';
 
 import simpleTypes from './snippets/new-features/simpleTypes'
 import fragments from './snippets/new-features/fragments';
@@ -15,28 +14,11 @@ import dontChangeState from './snippets/new-features/dontChangeState'
 import { dynamicContext1, dynamicContext2 } from './snippets/patterns/dynamicContext';
 import fragmentFeed from './snippets/patterns/fragmentFeed';
 import inlineOrModal from './snippets/patterns/inlineOrModal';
-
-require('normalize.css');
-require('prismjs/themes/prism-funky.css');
-
-const theme = createTheme(
-  {
-    primary: '#1F2022',
-    secondary: '#CECECE',
-    tertiary: '#03A9FC',
-    quartenary: 'white',
-  },
-  {
-    primary: 'Montserrat',
-    secondary: 'Helvetica',
-  }
-);
-
-const Accent = ({ children }) => (
-  <span style={{color:theme.screen.colors.tertiary}}>
-    {children}
-  </span>
-)
+import templateMethods from './snippets/patterns/templateMethods';
+import renderProps from './snippets/patterns/renderProps';
+import decorators from './snippets/patterns/decorators';
+import { lazyLoading, conditionalLoading, fullstackComponent } from './snippets/patterns/loadable';
+import { suspend, suspendable } from './snippets/patterns/suspense';
 
 export default class Presentation extends React.Component {
   render() {
@@ -143,6 +125,44 @@ export default class Presentation extends React.Component {
         <CodeSlide {...dynamicContext2} />  
         <CodeSlide {...refs} />
         <CodeSlide {...forwardRefs} />
+        <Slide id="patterns">
+          <Title>All the Patterns</Title>
+          <CenteredList>
+            <ListItem>Higher Order Components</ListItem>
+            <ListItem>Dynamic loading</ListItem>
+            <ListItem>State management</ListItem>
+          </CenteredList>
+        </Slide>
+        <Slide id="hoc-vs-render-props">
+          <Title>Higher Order Component</Title>
+          <CenteredList>
+            <ListItem>Decoration / mixin Pattern</ListItem>
+            <ListItem>Template method / strategy pattern</ListItem>
+            <ListItem>Render props / callback pattern</ListItem>
+          </CenteredList>
+        </Slide>
+        <CodeSlide {...decorators} />
+        <CodeSlide {...templateMethods} />
+        <CodeSlide {...renderProps}/>
+        <Slide id="dynamic-loading">
+          <Title>Dynamically loading components</Title>
+          <CenteredList>
+            <ListItem>Lazy loading</ListItem>
+            <ListItem>Fullstack components</ListItem>
+            <ListItem>Atomic but composable UIs</ListItem>
+          </CenteredList>
+        </Slide>
+        <CodeSlide {...lazyLoading} />
+        <CodeSlide {...conditionalLoading} />
+        <CodeSlide {...fullstackComponent} />
+        <Slide id="state-management">
+          <Title>State management</Title>
+          <CenteredList>
+            <ListItem>Redux thunk</ListItem>
+            <ListItem>Redux sagas</ListItem>
+            <ListItem>Observables</ListItem>
+          </CenteredList>
+        </Slide>
         <Slide id="coming_soon">
           <Title>Coming soon './future'</Title>
           <CenteredList>
@@ -155,7 +175,9 @@ export default class Presentation extends React.Component {
           <Title>Tools improvements</Title>
           <CenteredList>
             <ListItem><Accent>&lt;StrictMode&gt;</Accent> Component</ListItem>
+            <div>Alerts about unsafe side-effects and future feature deprecations</div>
             <ListItem><Accent>&lt;Profiler&gt;</Accent> Component</ListItem>
+            <div>Measures the performance of your component tree</div>
           </CenteredList>
         </Slide>
         <Slide id="async_rendering">
@@ -166,47 +188,26 @@ export default class Presentation extends React.Component {
             <ListItem>predictable side-effects</ListItem>
           </CenteredList>
         </Slide>
+        <Slide id="no-side-effects-quote">
+          <BlockQuote>
+            <Quote textSize="1em" textColor="secondary">Components should be resilient to re-renders. If re-rendering your component with the same props ever results in a different behavior, that component is not well-designed</Quote>
+            <Cite style={{float:'right'}}><Link textColor="tertiary" href="https://twitter.com/dan_abramov/status/1000899848122617858">Dan Abramov</Link></Cite>
+          </BlockQuote>
+        </Slide>
         <Slide id="suspense">
           <Title>Suspense</Title>
           <div>pause the rendering of a component</div>
           <CenteredList>
             <ListItem>async code appears synchronous</ListItem>
             <ListItem>Suspendable data sources</ListItem>
-            <ListItem>Suspendable containers: &lt;Placeholder&gt;, &lt;Loading&gt;</ListItem>
+            <ListItem>Suspendable containers:<br/>
+              <Accent>&lt;Placeholder&gt;</Accent>,
+              <Accent>&lt;Loading&gt;</Accent>
+            </ListItem>
           </CenteredList>
         </Slide>
-        <Slide id="patterns">
-          <Title>All the Patterns</Title>
-          <CenteredList>
-            <ListItem>Higher Order Components</ListItem>
-            <ListItem>Dynamic loading</ListItem>
-            <ListItem>State management</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="hoc-vs-render-props">
-          <Title>Higher Order vs Render Props</Title>
-          <CenteredList>
-            <ListItem>Higher Order - template methods</ListItem>
-            <ListItem>Render props - callbacks</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="dynamic-loading">
-          <Title>Dynamic Loading</Title>
-          <CenteredList>
-            <ListItem>Component only vs data included</ListItem>
-            <ListItem>Fullstack components</ListItem>
-            <ListItem>Managed internal state</ListItem>
-            <ListItem>Clear interface</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="state-management">
-          <Title>State management</Title>
-          <CenteredList>
-            <ListItem>Redux thunk</ListItem>
-            <ListItem>Redux sagas</ListItem>
-            <ListItem>Observables</ListItem>
-          </CenteredList>
-        </Slide>
+        <CodeSlide {...suspend} />
+        <CodeSlide {...suspendable} />
         <Slide id="the_end">
           <Title fit>Thank you!</Title>
           <Title fit secondary>Questions? Comments?</Title>

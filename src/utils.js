@@ -5,6 +5,23 @@ import {
   List,
   Slide
 } from 'spectacle';
+import createTheme from 'spectacle/lib/themes/default';
+
+require('normalize.css');
+require('prismjs/themes/prism-funky.css');
+
+const theme = createTheme(
+  {
+    primary: '#1F2022',
+    secondary: '#CECECE',
+    tertiary: '#03A9FC',
+    quartenary: 'white',
+  },
+  {
+    primary: 'Montserrat',
+    secondary: 'Helvetica',
+  }
+);
 
 const Title = ({ children, secondary, ...otherProps }) => (
   <Heading {...otherProps} size={4} textColor={secondary ? "secondary" : "tertiary"}>{children}</Heading>
@@ -24,4 +41,10 @@ const CodeSlide = React.forwardRef(({ id, title = "404 Missing Slide", source, c
   </Slide>
 ));
 
-export { Title, CenteredList, CodeSlide };
+const Accent = ({ children }) => (
+  <span style={{ color:theme.screen.colors.tertiary }}>
+    {children}
+  </span>
+)
+
+export { Accent, CenteredList, CodeSlide, Title, theme };
