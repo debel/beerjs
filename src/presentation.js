@@ -25,8 +25,8 @@ export default class Presentation extends React.Component {
     return (
       <Deck theme={theme} progress="bar">
         <Slide id="title">
-          <Title fit>Fullstack React</Title>
-          <Title fit secondary>Patterns and Best Practices</Title>
+          <Title fit>React 16 Overview</Title>
+          <Title fit secondary>Features, Patterns and Best Practices</Title>
         </Slide>
         <Slide id="about_me">
           <Title>About me</Title>
