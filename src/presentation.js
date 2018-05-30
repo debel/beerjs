@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cite, CodePane, Deck, BlockQuote, Layout, List, ListItem, Link, Image, Slide, Quote } from 'spectacle';
+import { Cite, Deck, BlockQuote, Layout, List, ListItem, Link, Image, Slide, Quote } from 'spectacle';
 
 import { CodeSlide, Title, CenteredList, Accent, theme } from './utils';
 
@@ -43,7 +43,7 @@ export default class Presentation extends React.Component {
             <ListItem>Founded in 2003</ListItem>
             <ListItem>Mission: be the best travel search engine</ListItem>
             <ListItem>
-              <Accent>Global:</Accent> 10 offices hosting over 800 employees from 50 nationalities
+              <Accent>Global:</Accent> 10 offices hosting over 900 employees from 50 nationalities
             </ListItem>
             <ListItem><Accent>Growing:</Accent> 60 million unique monthly visitors</ListItem>
             <ListItem><Accent>Technology-driven:</Accent> 50% of staff are engineers</ListItem>
@@ -176,6 +176,7 @@ export default class Presentation extends React.Component {
           <CenteredList>
             <ListItem><Accent>&lt;StrictMode&gt;</Accent> Component</ListItem>
             <div>Alerts about unsafe side-effects and future feature deprecations</div>
+            <br/>
             <ListItem><Accent>&lt;Profiler&gt;</Accent> Component</ListItem>
             <div>Measures the performance of your component tree</div>
           </CenteredList>
@@ -208,6 +209,10 @@ export default class Presentation extends React.Component {
         </Slide>
         <CodeSlide {...suspend} />
         <CodeSlide {...suspendable} />
+        <Slide>
+          <Title>Demo</Title>
+          <Title italic secondary>(Let's hope this still runs)</Title>
+        </Slide>
         <Slide id="the_end">
           <Title fit>Thank you!</Title>
           <Title fit secondary>Questions? Comments?</Title>

@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "React 16 Overview",
+  "name": "Presentation about React 16 features and patterns",
   "icons": [
     {
       "src": "favicon.ico",

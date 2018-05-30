@@ -6,7 +6,7 @@ const lazyLoading = {
 `import Loadable from 'react-loadable';
 
 const LoadableComponent = Loadable({
-  loader: () => import('./myCoolComponeznt'),
+  loader: () => import('./myCoolComponent'),
   loading: () => 'Loading...'
 });
 
@@ -32,7 +32,7 @@ const conditionalLoading = {
 const fullstackComponent = {
   id: 'fullstack-component',
   title: 'Fullstack Components',
-  comment: 'Client-side props are replaced by server supplied props',
+  comment: 'The server renders the component. Client-side props used as server-side params.',
   source:(
 `const UserProfile = Loadable({
   loader: ({ id }) => componentRegistry.fetch({

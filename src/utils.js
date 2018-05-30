@@ -10,6 +10,7 @@ import createTheme from 'spectacle/lib/themes/default';
 require('normalize.css');
 require('prismjs/themes/prism-funky.css');
 require('./overrides.css');
+
 const theme = createTheme(
   {
     primary: '#1F2022',
