@@ -28,4 +28,45 @@ import { Suspendable } from './future/suspense';
 `)
 };
 
-export { suspend, suspendable };
+const suspendImpl = {
+  id: 'suspend-implementation',
+  title: 'Imitating suspense',
+  comment: 'If data is not in the cache, throw a promise for getting it',
+  source: (
+`const suspend = fetcher => {
+  const cache = Object.create(null);
+  
+  return (id) => {
+    if (cache[id] !== undefined) {
+      return cache[id];
+    }
+    
+    throw fetcher(id).then(data => (cache[id] = data));
+  };
+ };`)
+};
+const suspendableImpl = {
+  id: 'suspendable-implementation',
+  title: 'Imitating suspense',
+  comment: 'catch a promise for getting data, re-render when done',
+  source: (
+`
+class Suspendable extends Component {
+  state = { loading: false, error: false };
+
+  componentDidCatch(error) {
+    this.setState({ loading: true });
+    error.then(() => this.setState({ loading: false, error: false }))
+         .catch(() => this.setState({ loading: false, error: true }));
+  }
+
+  render() {
+    return (this.state.error && this.props.error)
+      || (this.state.loading && this.props.loading)
+      || this.props.children;
+  }
+}
+`)
+};
+
+export { suspend, suspendable, suspendImpl, suspendableImpl };

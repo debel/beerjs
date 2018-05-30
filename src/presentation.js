@@ -18,7 +18,7 @@ import templateMethods from './snippets/patterns/templateMethods';
 import renderProps from './snippets/patterns/renderProps';
 import decorators from './snippets/patterns/decorators';
 import { lazyLoading, conditionalLoading, fullstackComponent } from './snippets/patterns/loadable';
-import { suspend, suspendable } from './snippets/patterns/suspense';
+import { suspend, suspendable, suspendImpl, suspendableImpl } from './snippets/patterns/suspense';
 
 export default class Presentation extends React.Component {
   render() {
@@ -27,6 +27,7 @@ export default class Presentation extends React.Component {
         <Slide id="title">
           <Title fit>React 16 Overview</Title>
           <Title fit secondary>Features, Patterns and Best Practices</Title>
+          <div style={{ float: 'right' }}>Sofia, 30.05.2018</div>
         </Slide>
         <Slide id="about_me">
           <Title>About me</Title>
@@ -45,7 +46,7 @@ export default class Presentation extends React.Component {
             <ListItem>
               <Accent>Global:</Accent> 10 offices hosting over 900 employees from 50 nationalities
             </ListItem>
-            <ListItem><Accent>Growing:</Accent> 60 million unique monthly visitors</ListItem>
+            <ListItem><Accent>Growing:</Accent> over 60 million unique monthly visitors</ListItem>
             <ListItem><Accent>Technology-driven:</Accent> 50% of staff are engineers</ListItem>
           </List>
         </Slide>
@@ -60,7 +61,7 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide id="atomic_design">
           <Title>Atomic Design</Title>
-          <List style={{listStyle: 'none'}}>
+          <CenteredList>
             <ListItem>
               Methodology for creating design systems
               <span style={{fontStyle:'italic'}}> (as opposed to ad-hoc collections of web pages)</span>
@@ -72,7 +73,7 @@ export default class Presentation extends React.Component {
                 (Link to original blog post)
               </Link>
             </ListItem>
-          </List>
+          </CenteredList>
         </Slide>
         <Slide id="atomic_design_concepts">
           <Title>Atomic Design: Concepts</Title>
@@ -86,17 +87,18 @@ export default class Presentation extends React.Component {
             <Image src="images/atomic_design_systems.png" />
           </Layout>
         </Slide>
-        <Slide id="atomic_design_benefits">
-          <Title>Atomic Design: Benefits</Title>
+        <Slide id="atomic_design_principles">
+          <Title>Atomic Design: Principles</Title>
           <CenteredList>
-            <ListItem>Consistency</ListItem>
+            <ListItem>Composability</ListItem>
             <ListItem>Reusability</ListItem>
+            <ListItem>Consistency</ListItem>
             <ListItem>Maintainability</ListItem>
           </CenteredList>
         </Slide>
         <Slide id="atomic_design_and_react">
-          <Title>React follows</Title>
-          <Title secondary>Atomic Design</Title>
+          <Title>React helps you</Title>
+          <Title secondary>follow Atomic Design</Title>
         </Slide>
         <Slide id="react_16">
           <Title>What's new in React 16?</Title>
@@ -181,7 +183,7 @@ export default class Presentation extends React.Component {
             <div>Alerts about unsafe side-effects and future feature deprecations</div>
             <br/>
             <ListItem><Accent>&lt;Profiler&gt;</Accent> Component</ListItem>
-            <div>Measures the performance of your component tree</div>
+            <div>Measures the performance of your component tree?</div>
           </CenteredList>
         </Slide>
         <Slide id="react-architecture-img">
@@ -207,18 +209,19 @@ export default class Presentation extends React.Component {
         <Slide id="async_rendering-2">
           <Title>Async rendering</Title>
           <CenteredList>
-            <ListItem>Use the <Accent>&lt;AsyncMode&gt;</Accent> component to mark a lower priorty part of the component tree</ListItem>
+            <ListItem>Use the <Accent>&lt;Async&gt;</Accent> component to mark a lower priorty part of the component tree</ListItem>
             <br/>
             <ListItem>The DOM renderer can use <Accent>requestAnimationFrame</Accent> and <Accent>requestIdleCallback</Accent> for high and low priority updates respectively</ListItem>
           </CenteredList>
         </Slide>
         <Slide id="async_rendering-3">
-          <Title>Async rendering: Benefits</Title>
+          <Title>Async rendering</Title>
           <CenteredList>
             <ListItem>assign priority to different units of work</ListItem>
             <ListItem>pause work and come back to it later</ListItem>
             <ListItem>reuse previously completed work</ListItem>
             <ListItem>abort work if it's no longer needed</ListItem>
+            <ListItem><Link textColor="secondary" italic href="https://github.com/acdlite/react-fiber-architecture">read more</Link></ListItem>
           </CenteredList>
         </Slide>
         <Slide id="no-side-effects-quote">
@@ -239,6 +242,8 @@ export default class Presentation extends React.Component {
         </Slide>
         <CodeSlide {...suspend} />
         <CodeSlide {...suspendable} />
+        <CodeSlide {...suspendImpl} />
+        <CodeSlide {...suspendableImpl} />
         <Slide id="demo">
           <Title bigger>Demo</Title>
           <Title italic secondary>(Let's hope this still works)</Title>
