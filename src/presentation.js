@@ -9,7 +9,8 @@ import context from './snippets/new-features/context';
 import errorBoundries from './snippets/new-features/errorBoundries';
 import { refs, forwardRefs } from './snippets/new-features/refsAndForwardRefs';
 import newLifecycleMethods from './snippets/new-features/newLifecycleMethods';
-import dontChangeState from './snippets/new-features/dontChangeState'
+import dontChangeState from './snippets/new-features/dontChangeState';
+import unstableAsync from './snippets/new-features/unstableAsync';
 
 import { dynamicContext1, dynamicContext2 } from './snippets/patterns/dynamicContext';
 import fragmentFeed from './snippets/patterns/fragmentFeed';
@@ -25,106 +26,147 @@ export default class Presentation extends React.Component {
     return (
       <Deck theme={theme} progress="bar">
         <Slide id="title">
-          <Title fit>React 16 Overview</Title>
-          <Title fit secondary>Features, Patterns and Best Practices</Title>
-          <div style={{ float: 'right' }}>Sofia, 30.05.2018</div>
+          <Title fit>The future of React</Title>
+          <Title fit secondary>Async and Suspense</Title>
+          <div style={{ float: 'right' }}>Beer.js Sofia, 02.08.2018</div>
         </Slide>
-        <Slide id="about_me">
-          <Title>About me</Title>
+        <Slide id="hi_there">
+          <Title>Hi, I'm Mihail</Title>
           <CenteredList>
-            <ListItem>Hi, I'm Mihail</ListItem>
             <ListItem>Fullstack Dev at Skyscanner</ListItem>
             <ListItem>Part-time professor at AUBG</ListItem>
-            <ListItem>React-ing since 2015</ListItem>
+            <ListItem>React-ing since 2016</ListItem>
           </CenteredList>
         </Slide>
-        <Slide id="about_skyscanner">
-          <Title>About Skyscanner</Title>
-          <List style={{listStyle: 'none'}}>
-            <ListItem>Founded in 2003</ListItem>
-            <ListItem>Mission: be the best travel search engine</ListItem>
-            <ListItem>
-              <Accent>Global:</Accent> 10 offices hosting over 900 employees from 50 nationalities
-            </ListItem>
-            <ListItem><Accent>Growing:</Accent> over 60 million unique monthly visitors</ListItem>
-            <ListItem><Accent>Technology-driven:</Accent> 50% of staff are engineers</ListItem>
-          </List>
-        </Slide>
-        <Slide id="outline">
-          <Title>Outline</Title>
+        <Slide id="agenda">
+          <Title>Agenda</Title>
           <CenteredList>
-            <ListItem>Atomic Design</ListItem>
-            <ListItem>New stuff in React 16</ListItem>
-            <ListItem>All the Patterns</ListItem>
-            <ListItem>Coming soon: Async & Suspense</ListItem>
+            <ListItem>React in 5 minutes</ListItem>
+            <ListItem>Async rendering</ListItem>
+            <ListItem>Suspense</ListItem>
           </CenteredList>
         </Slide>
-        <Slide id="atomic_design">
-          <Title>Atomic Design</Title>
+        <Slide id="react-architecture-img">
+          <Title>React: from code to screen</Title>
+          <Image width="85%" src="images/react-data-flow.png" />
+        </Slide>
+        <Slide id="react-architecture">
+          <Title>React architecture</Title>
           <CenteredList>
             <ListItem>
-              Methodology for creating design systems
-              <span style={{fontStyle:'italic'}}> (as opposed to ad-hoc collections of web pages)</span>
+              <Accent>render</Accent>:
+              <span> create a virtual dom from a component tree</span>
+              <hr/>
             </ListItem>
-            <br/>
-            <ListItem>An equal partnership between design and engineering</ListItem>
             <ListItem>
-              <Link textColor="secondary" href="http://bradfrost.com/blog/post/atomic-web-design/">
-                (Link to original blog post)
-              </Link>
+              <Accent>reconcile</Accent>:
+              <span> calculate which parts of the virtual dom have changed</span>
+              <hr/>
+            </ListItem>
+            <ListItem>
+              <Accent>commit</Accent>:
+              <span> apply the changes to the target environment</span>
             </ListItem>
           </CenteredList>
-        </Slide>
-        <Slide id="atomic_design_concepts">
-          <Title>Atomic Design: Concepts</Title>
-          <Layout>
-            <Image src="images/atomic_design_tokens.png" />
-            <Image src="images/atomic_design_atoms.png" />
-            <Image src="images/atomic_design_molecules.png" />
-          </Layout>
-          <Layout>
-            <Image src="images/atomic_design_organisms.png" />
-            <Image src="images/atomic_design_systems.png" />
-          </Layout>
-        </Slide>
-        <Slide id="atomic_design_principles">
-          <Title>Atomic Design: Principles</Title>
-          <CenteredList>
-            <ListItem>Composability</ListItem>
-            <ListItem>Reusability</ListItem>
-            <ListItem>Consistency</ListItem>
-            <ListItem>Maintainability</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="atomic_design_and_react">
-          <Title>React helps you</Title>
-          <Title secondary>follow Atomic Design</Title>
         </Slide>
         <Slide id="react_16">
           <Title>What's new in React 16?</Title>
           <CenteredList>
-            <ListItem>Fragments</ListItem>
-            <ListItem>Context</ListItem>
+            <ListItem>Fiber reconsiler (internal)</ListItem>
+            <ListItem>Improved component lifecycle</ListItem>
+            <ListItem>"Meta" components</ListItem>
             <ListItem>Error boundries</ListItem>
-            <ListItem>New Lifecycle methods</ListItem>
-            <ListItem>Refs & forwardRefs</ListItem>
-            <ListItem>and more</ListItem>
+            <ListItem>And much more</ListItem>
           </CenteredList>
+        </Slide>
+        <Slide id="reconsilers">
+          <Title>Fiber reconsiler</Title>
+          <CenteredList>
+            <ListItem><Accent>fiber</Accent>: a cacheable unit of work with a specific priority <hr /></ListItem>
+            <ListItem>No longer needs to render all components in a single event loop tick <hr /></ListItem>
+            <ListItem>Can pause, postpone or discard the creation of virtual dom elements</ListItem>
+          </CenteredList>
+        </Slide>
+        <Slide id="compnent-lifecycle-img">
+          <Title>Component Lifecycle</Title>
+          <Link target="_blank" href="http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">
+            <Image src="images/component-lifecycle-color-inverse.png" />
+          </Link>
+        </Slide>
+        <Slide id="no-side-effects-quote">
+          <Title>Manage your side-effects</Title>
+          <BlockQuote>
+            <Quote textSize="1em" textColor="secondary">Components should be resilient to re-renders. If re-rendering your component with the same props ever results in a different behavior, that component is not well-designed</Quote>
+            <Cite style={{float:'right'}}><Link textColor="tertiary" href="https://twitter.com/dan_abramov/status/1000899848122617858">Dan Abramov</Link></Cite>
+          </BlockQuote>
+        </Slide>
+        <CodeSlide {...errorBoundries} />
+        <Slide id="meta-components">
+          <Title>Meta Components</Title>
+          <CenteredList>
+            <ListItem><Accent>&lt;StrictMode&gt;</Accent> Component</ListItem>
+            <div>Alerts about unsafe side-effects and feature deprecations</div>
+            <br/>
+            <ListItem><Accent>&lt;Profiler&gt;</Accent> Component</ListItem>
+            <div>Measures the performance of your component tree</div>
+            <br/>
+            <ListItem><Accent>&lt;Async&gt;</Accent> Component</ListItem>
+            <div>Indicate to React that this component sub-tree is of lower priority</div>
+          </CenteredList>
+        </Slide>
+        <CodeSlide {...unstableAsync} />
+        <Slide id="async_rendering-2">
+          <Title>Async rendering</Title>
+          <CenteredList>
+            <ListItem>declerative way to assign priority to components</ListItem>
+            <ListItem>pause work and come back to it later</ListItem>
+            <ListItem>reuse previously completed work</ListItem>
+            <ListItem>abort work if it's no longer needed</ListItem>
+          </CenteredList>
+        </Slide>
+        <Slide id="async_rendering-3">
+          <Title>Async rendering</Title>
+          <div>
+            The new DOM renderer can use <Accent>requestAnimationFrame</Accent>
+            and <Accent>requestIdleCallback</Accent>
+            for high and low priority updates respectively
+          </div>
+        </Slide>
+        <Slide id="suspense">
+          <Title>Suspense</Title>
+          <div>pause the rendering of a component while fetching data</div>
+          <CenteredList>
+            <ListItem><Accent>async</Accent> code appears synchronous</ListItem>
+            <ListItem>suspendable data sources</ListItem>
+            <ListItem>suspendable containers</ListItem>
+          </CenteredList>
+        </Slide>
+        <CodeSlide {...suspend} />
+        <CodeSlide {...suspendable} />
+        <CodeSlide {...suspendImpl} />
+        <CodeSlide {...suspendableImpl} />
+        <Slide id="demo">
+          <Title bigger>Demo</Title>
+          <Title italic secondary>(Let's hope this still works)</Title>
+        </Slide>
+        <Slide id="the_end">
+          <Title fit>Thank you!</Title>
+          <Title fit secondary>Questions? Comments?</Title>
+        </Slide>
+
+        <Slide id="extra slides">
+          <Title fit>I have extra slides</Title>
+          <Title fit secondary>if there is time</Title>
         </Slide>
         <CodeSlide {...simpleTypes} />
         <CodeSlide {...fragments} />
         <CodeSlide {...inlineOrModal} />
         <CodeSlide {...fragmentFeed} />
         <CodeSlide {...dontChangeState} />
-        <CodeSlide {...errorBoundries} />
-        <CodeSlide {...newLifecycleMethods} />
-        <Slide id="compnent-lifecycle-img">
-          <Title>Component Lifecycle Diagram</Title>
-          <Image src="images/component-lifecycle.jpg" />
-        </Slide>
+
         <CodeSlide {...context} />
         <CodeSlide {...dynamicContext1} />
-        <CodeSlide {...dynamicContext2} />  
+        <CodeSlide {...dynamicContext2} />
         <CodeSlide {...refs} />
         <CodeSlide {...forwardRefs} />
         <Slide id="patterns">
@@ -167,90 +209,6 @@ export default class Presentation extends React.Component {
             <ListItem>Observables</ListItem>
             <ListItem>and more</ListItem>
           </CenteredList>
-        </Slide>
-        <Slide id="coming_soon">
-          <Title>Coming soon './future'</Title>
-          <CenteredList>
-            <ListItem>Development improvements</ListItem>
-            <ListItem>Async rendering</ListItem>
-            <ListItem>Suspense</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="dev_improvements">
-          <Title>Development improvements</Title>
-          <CenteredList>
-            <ListItem><Accent>&lt;StrictMode&gt;</Accent> Component</ListItem>
-            <div>Alerts about unsafe side-effects and future feature deprecations</div>
-            <br/>
-            <ListItem><Accent>&lt;Profiler&gt;</Accent> Component</ListItem>
-            <div>Measures the performance of your component tree?</div>
-          </CenteredList>
-        </Slide>
-        <Slide id="react-architecture-img">
-          <Title>React Architecture</Title>
-          <Image width="75%" src="images/react-fiber-architecture.png" />
-        </Slide>
-        <Slide id="react-architecture">
-          <Title>React Architecture</Title>
-          <CenteredList>
-            <ListItem><Accent>reconciliation</Accent>: calculating which parts of the component tree have changed</ListItem>
-            <br/>
-            <ListItem><Accent>rendering</Accent>: applying the changes to the target environment</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="async_rendering-1">
-          <Title>Async rendering</Title>
-          <CenteredList>
-            <ListItem><Accent>scheduling</Accent>: the process of determining when work should be performed</ListItem>
-            <br />
-            <ListItem><Accent>fiber</Accent>: a unit of work with a specific priority</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="async_rendering-2">
-          <Title>Async rendering</Title>
-          <CenteredList>
-            <ListItem>Use the <Accent>&lt;Async&gt;</Accent> component to mark a lower priorty part of the component tree</ListItem>
-            <br/>
-            <ListItem>The DOM renderer can use <Accent>requestAnimationFrame</Accent> and <Accent>requestIdleCallback</Accent> for high and low priority updates respectively</ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="async_rendering-3">
-          <Title>Async rendering</Title>
-          <CenteredList>
-            <ListItem>assign priority to different units of work</ListItem>
-            <ListItem>pause work and come back to it later</ListItem>
-            <ListItem>reuse previously completed work</ListItem>
-            <ListItem>abort work if it's no longer needed</ListItem>
-            <ListItem><Link textColor="secondary" italic href="https://github.com/acdlite/react-fiber-architecture">read more</Link></ListItem>
-          </CenteredList>
-        </Slide>
-        <Slide id="no-side-effects-quote">
-          <Title>Manage your side-effects</Title>
-          <BlockQuote>
-            <Quote textSize="1em" textColor="secondary">Components should be resilient to re-renders. If re-rendering your component with the same props ever results in a different behavior, that component is not well-designed</Quote>
-            <Cite style={{float:'right'}}><Link textColor="tertiary" href="https://twitter.com/dan_abramov/status/1000899848122617858">Dan Abramov</Link></Cite>
-          </BlockQuote>
-        </Slide>
-        <Slide id="suspense">
-          <Title>Suspense</Title>
-          <div>pause the rendering of a component while fetching data</div>
-          <CenteredList>
-            <ListItem><Accent>async</Accent> code appears synchronous</ListItem>
-            <ListItem>suspendable data sources</ListItem>
-            <ListItem>suspendable containers</ListItem>
-          </CenteredList>
-        </Slide>
-        <CodeSlide {...suspend} />
-        <CodeSlide {...suspendable} />
-        <CodeSlide {...suspendImpl} />
-        <CodeSlide {...suspendableImpl} />
-        <Slide id="demo">
-          <Title bigger>Demo</Title>
-          <Title italic secondary>(Let's hope this still works)</Title>
-        </Slide>
-        <Slide id="the_end">
-          <Title fit>Thank you!</Title>
-          <Title fit secondary>Questions? Comments?</Title>
         </Slide>
       </Deck>
     );

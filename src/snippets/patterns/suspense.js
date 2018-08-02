@@ -35,12 +35,12 @@ const suspendImpl = {
   source: (
 `const suspend = fetcher => {
   const cache = Object.create(null);
-  
+
   return (id) => {
     if (cache[id] !== undefined) {
       return cache[id];
     }
-    
+
     throw fetcher(id).then(data => (cache[id] = data));
   };
  };`)
@@ -50,14 +50,13 @@ const suspendableImpl = {
   title: 'Imitating suspense',
   comment: 'catch a promise for getting data, re-render when done',
   source: (
-`
-class Suspendable extends Component {
+`class Suspendable extends Component {
   state = { loading: false, error: false };
 
   componentDidCatch(error) {
-    this.setState({ loading: true });
-    error.then(() => this.setState({ loading: false, error: false }))
-         .catch(() => this.setState({ loading: false, error: true }));
+    this.setState({loading: true});
+    error.then(()=>this.setState({loading:false,error:false}))
+         .catch(()=>this.setState({loading:false,error:true}));
   }
 
   render() {
@@ -65,8 +64,7 @@ class Suspendable extends Component {
       || (this.state.loading && this.props.loading)
       || this.props.children;
   }
-}
-`)
+}`)
 };
 
 export { suspend, suspendable, suspendImpl, suspendableImpl };
